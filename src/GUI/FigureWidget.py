@@ -1,5 +1,5 @@
 from PySide6 import QtWidgets
-from PySide6.QtCore import Slot
+from PySide6.QtCore import Slot, Qt
 
 from matplotlib.backends.backend_qtagg import FigureCanvas
 from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
@@ -13,8 +13,9 @@ class FigureWidget(QtWidgets.QWidget):
         self.data = parent.data
         self.data_dict = create_data_dict()
         
-        self.dataComboLabel = QtWidgets.QLabel()
-        self.dataComboLabel.setText("Plot Data:")
+        dataComboLabel = QtWidgets.QLabel()
+        dataComboLabel.setFixedSize(200,16)
+        dataComboLabel.setText("Plot Selected Data:")
                 
         self.dataComboBox = QtWidgets.QComboBox()
         self.dataComboBox.addItems(self.data_dict.keys())
@@ -22,19 +23,20 @@ class FigureWidget(QtWidgets.QWidget):
         
         header = QtWidgets.QWidget()
         headerLayout = QtWidgets.QHBoxLayout()
-        headerLayout.addWidget(self.dataComboLabel)
+        headerLayout.addWidget(dataComboLabel)
         headerLayout.addWidget(self.dataComboBox)
         header.setLayout(headerLayout)
         
-        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 3)))
-        self.figureCanvas.setMinimumSize(600, 400)
-        self.axes = self.figureCanvas.figure.subplots()                
-        self.updateCanvas()
+        self.figureCanvas = FigureCanvas(Figure(figsize=(5, 4)))
+        self.figureCanvas.setMinimumSize(700, 400)
+        self.figureCanvas.updateGeometry()
+        self.axes = self.figureCanvas.figure.subplots()
         
         layout = QtWidgets.QVBoxLayout(self)
         layout.addWidget(header)
         layout.addWidget(NavigationToolbar(self.figureCanvas, self))
-        layout.addWidget(self.figureCanvas)
+        layout.addWidget(self.figureCanvas,alignment = Qt.AlignmentFlag.AlignBaseline)
+        
     
     @Slot()
     def updateCanvas(self):
@@ -48,6 +50,7 @@ class FigureWidget(QtWidgets.QWidget):
         self.axes.set_xlabel("Time (s)")
         self.figureCanvas.draw()
     
+
         
 def create_data_dict()-> dict:
     """Generates a dictionary conatianing the associated ploting elements

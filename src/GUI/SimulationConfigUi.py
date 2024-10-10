@@ -24,8 +24,8 @@ class SimulationUi(QtWidgets.QWidget):
         self.runButton.clicked.connect(self.runButtonClicked)      
         
         self.startTimeLabel = QtWidgets.QLabel()
-        self.startTimeLabel.setFixedWidth(25)
-        self.startTimeLabel.setText("Start:") 
+        self.startTimeLabel.setFixedWidth(75)
+        self.startTimeLabel.setText("Start time:") 
         
         self.startTimeEdit = QtWidgets.QLineEdit()
         self.startTimeEdit.setFixedWidth(50)
@@ -33,8 +33,8 @@ class SimulationUi(QtWidgets.QWidget):
         self.startTimeEdit.editingFinished.connect(self.setStartTime)
         
         self.endTimeLabel = QtWidgets.QLabel()
-        self.endTimeLabel.setFixedWidth(25)
-        self.endTimeLabel.setText("End:") 
+        self.endTimeLabel.setFixedWidth(75)
+        self.endTimeLabel.setText("Max Run Time:") 
         
         self.endTimeEdit = QtWidgets.QLineEdit()
         self.endTimeEdit.setFixedWidth(50)
@@ -42,7 +42,7 @@ class SimulationUi(QtWidgets.QWidget):
         self.endTimeEdit.editingFinished.connect(self.setEndTime)
         
         self.stepTimeLabel = QtWidgets.QLabel()
-        self.stepTimeLabel.setFixedWidth(25)
+        self.stepTimeLabel.setFixedWidth(75)
         self.stepTimeLabel.setText("Step:") 
         
         self.stepTimeEdit = QtWidgets.QLineEdit()
@@ -59,7 +59,6 @@ class SimulationUi(QtWidgets.QWidget):
         inputBox.addWidget(self.stepTimeLabel)
         inputBox.addWidget(self.stepTimeEdit)
         inputBox.addWidget(self.runButton)
-        
         inputWidget = QtWidgets.QWidget()
         inputWidget.setLayout(inputBox)
         
